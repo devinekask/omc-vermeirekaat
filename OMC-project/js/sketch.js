@@ -27,10 +27,10 @@ function draw() {
     // volume ophalen v/d mic 
     let input = mic.getLevel(); 
     vol = input * 100;
-    console.log(vol); 
+    // console.log(vol); 
 
     // for loop om telkens een nieuwe flame (particle) aan te maken en deze stop je in de array 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         let part = new Flame(); 
         flames.push(part);
     }
@@ -60,7 +60,7 @@ function setGradient(gradientDark, gradientLight) {
 // klasse aanmaken waar je verschillende instanties van kan maken
 class Flame {
     constructor() {
-        this.x = random(395, 405); 
+        this.x = random(385, 415); 
         this.y = 800; 
         this.velocityX = random(-1, 1);
         this.velocityY = random(-5, 5);
