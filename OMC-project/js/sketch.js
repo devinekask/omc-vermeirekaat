@@ -18,6 +18,12 @@ function draw() {
     for (let i = flames.length - 1; i >= 0; i--) {
         flames[i].display();
         flames[i].move(); 
+        flames[i].minimalize(); 
+
+        // wanneer de radius kleiner is of gelijk is aan 0, verdwijnt deze uit de array 
+        if (flames[i].radius <= 0) {
+            flames.splice(i, 1); 
+        }
     }
 }
 
@@ -36,5 +42,8 @@ class Flame {
     move() {
         this.x += random(-7, 7); 
         this.y -= random(1, 2); 
+    }
+    minimalize() {
+        this.radius -= 0.07; 
     }
 }
