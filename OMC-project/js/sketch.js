@@ -76,7 +76,7 @@ class Flame {
         ellipse(this.x, this.y, this.radius); 
     }
     move() {
-        this.x += random(-7, 7); 
+        this.x += random(-8, 8); 
         this.y -= random(1, 2); 
     }
     minimalize() {
