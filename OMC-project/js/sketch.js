@@ -17,6 +17,7 @@ function draw() {
     // per element in de array overloop je de verschillende functies binnen de class
     for (let i = flames.length - 1; i >= 0; i--) {
         flames[i].display();
+        flames[i].move(); 
     }
 }
 
@@ -31,5 +32,9 @@ class Flame {
     display() {
         fill(255); 
         ellipse(this.x, this.y, this.radius); 
+    }
+    move() {
+        this.x += random(-7, 7); 
+        this.y -= random(1, 2); 
     }
 }
