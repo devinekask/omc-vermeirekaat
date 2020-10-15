@@ -36,7 +36,11 @@ class Flame {
     }
     // particles tonen op het scherm met de elementen uit de constructor 
     display() {
-        fill(255); 
+        let colorR = 255; 
+        let colorG = random(165);
+        let colorB = 0; 
+        fill(colorR, colorG, colorB); 
+        noStroke(); 
         ellipse(this.x, this.y, this.radius); 
     }
     move() {
