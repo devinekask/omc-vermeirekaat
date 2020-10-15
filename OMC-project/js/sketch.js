@@ -21,7 +21,7 @@ function draw() {
     let input = mic.getLevel(); 
     vol = input * 100;
 
-    // console.log(vol); 
+    console.log(vol); 
 
     // for loop om telkens een nieuwe flame (particle) aan te maken en deze stop je in de array 
     for (let i = 0; i < 5; i++) {
@@ -48,7 +48,7 @@ class Flame {
         this.y = 800; 
         this.velocityX = random(-1, 1);
         this.velocityY = random(-5, 5);
-        this.radius = random(10, 20);  
+        this.radius = random(15, 25);  
     }
     // particles tonen op het scherm met de elementen uit de constructor 
     display() {
@@ -64,6 +64,10 @@ class Flame {
         this.y -= random(1, 2); 
     }
     minimalize() {
-        this.radius -= 0.07; 
+        // this.radius -= 0.07; 
+        if (vol < 20) {
+            this.radius -= vol / 10;
+        }
+        this.radius += vol / 100;
     }
 }
