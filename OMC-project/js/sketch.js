@@ -1,13 +1,27 @@
 // globale array om flames (particles) in op te slaan
 let flames = []; 
+let mic; 
+let vol; 
 
 function setup() {
     createCanvas(800, 800); 
+
+    // audio input aanmaken 
+    mic = new p5.AudioIn(); 
+
+    // audio input starten 
+    mic.start(); 
 }
 
 function draw() {
     // background moet nog een gradient worden
     background(0); 
+
+    // volume ophalen v/d mic 
+    let input = mic.getLevel(); 
+    vol = input * 100;
+
+    // console.log(vol); 
 
     // for loop om telkens een nieuwe flame (particle) aan te maken en deze stop je in de array 
     for (let i = 0; i < 5; i++) {
@@ -32,7 +46,9 @@ class Flame {
     constructor() {
         this.x = random(395, 405); 
         this.y = 800; 
-        this.radius = random(10, 20); 
+        this.velocityX = random(-1, 1);
+        this.velocityY = random(-5, 5);
+        this.radius = random(10, 20);  
     }
     // particles tonen op het scherm met de elementen uit de constructor 
     display() {
