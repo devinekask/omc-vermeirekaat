@@ -9,7 +9,8 @@ let gradientDark;
 let gradientLight;
 
 function setup() {
-    createCanvas(800, 800); 
+    // createCanvas(800, 800); 
+    createCanvas(windowWidth, windowHeight);
 
     // audio input aanmaken 
     mic = new p5.AudioIn(); 
@@ -60,8 +61,10 @@ function setGradient(gradientDark, gradientLight) {
 // klasse aanmaken waar je verschillende instanties van kan maken
 class Flame {
     constructor() {
-        this.x = random(385, 415); 
-        this.y = 800; 
+        // this.x = random(385, 415); 
+        // this.y = 800; 
+        this.x = windowWidth / 2 + 1; 
+        this.y = max(windowHeight);
         this.velocityX = random(-1, 1);
         this.velocityY = random(-5, 5);
         this.radius = random(15, 25);  
