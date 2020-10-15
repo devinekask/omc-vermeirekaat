@@ -1,5 +1,6 @@
 // globale array om flames (particles) in op te slaan
 let flames = []; 
+// globale variabelen om het geluid in op te slaan
 let mic; 
 let vol; 
 
@@ -14,13 +15,12 @@ function setup() {
 }
 
 function draw() {
-    // background moet nog een gradient worden
-    background(0); 
+    // background moet nog een gradient krijgen
+    background(0);
 
     // volume ophalen v/d mic 
     let input = mic.getLevel(); 
     vol = input * 100;
-
     console.log(vol); 
 
     // for loop om telkens een nieuwe flame (particle) aan te maken en deze stop je in de array 
@@ -64,10 +64,14 @@ class Flame {
         this.y -= random(1, 2); 
     }
     minimalize() {
-        // this.radius -= 0.07; 
-        if (vol < 20) {
+        // als de gebruiker stil praat dan zal het vuur uitdoven, als de gebruiker begint te roepen zal het vuur groter worden
+        // er is een default geïnstalleerd 
+        if (vol <= 2) {
+            this.radius -= 0.07 
+        } else if (vol <= 12) {
             this.radius -= vol / 10;
+        } else {
+            this.radius += vol / 100;
         }
-        this.radius += vol / 100;
     }
 }
