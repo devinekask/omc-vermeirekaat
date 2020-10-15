@@ -4,6 +4,10 @@ let flames = [];
 let mic; 
 let vol; 
 
+// globale variabelen voor de achtergrondkleuren
+let gradientDark;
+let gradientLight;
+
 function setup() {
     createCanvas(800, 800); 
 
@@ -15,8 +19,10 @@ function setup() {
 }
 
 function draw() {
-    // background moet nog een gradient krijgen
-    background(0);
+    // kleuren definiëren v/d gradient
+    gradientDark = color(0, 0, 51);
+    gradientLight = color(16, 74, 101);
+    setGradient(gradientDark, gradientLight); 
 
     // volume ophalen v/d mic 
     let input = mic.getLevel(); 
@@ -38,6 +44,16 @@ function draw() {
         if (flames[i].radius <= 0) {
             flames.splice(i, 1); 
         }
+    }
+}
+
+function setGradient(gradientDark, gradientLight) {
+    noFill();
+    for (let i = 0; i < height; i++) {
+        let overflow = map(i, 0, height, 0, 1);
+        let gradient = lerpColor(gradientDark, gradientLight, overflow); 
+        stroke(gradient);
+        line(0, i, width, i); 
     }
 }
 
