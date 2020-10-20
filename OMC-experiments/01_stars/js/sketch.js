@@ -15,10 +15,11 @@ function draw() {
     // background(0, 0, 35, 25); 
 
     // blinkende sterren aanmaken 
-    // for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
+        frameRate(3);
         let star = new Star();
         star.show(); 
-    //}
+    }
 }
 
 function setGradient(gradientDark, gradientLight) {
