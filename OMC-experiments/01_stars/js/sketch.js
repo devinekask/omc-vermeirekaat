@@ -2,6 +2,8 @@
 let gradientDark;
 let gradientLight;
 
+let stars = [];
+
 function setup() {
     // createCanvas(800, 800); 
     createCanvas(windowWidth, windowHeight);
@@ -15,10 +17,12 @@ function draw() {
     // background(0, 0, 35, 25); 
 
     // blinkende sterren aanmaken 
-    for (let i = 0; i < 10; i++) {
-        frameRate(3);
+    for (let i = 0; i < 30; i++) {
+        frameRate(5);
         let star = new Star();
-        star.show(); 
+        stars.push(star);
+        stars[i].show();
+        // console.log(stars[i]);
     }
 }
 
@@ -34,12 +38,12 @@ function setGradient(gradientDark, gradientLight) {
 
 class Star {
     constructor() {
-        this.x = random(windowWidth); 
-        this.y = random(windowHeight); 
-        this.size = random(1, 6); 
+        this.x = random(windowWidth);
+        this.y = random(windowHeight/2);
+        this.size = random(1, 6);
     }
     show() {
         fill(255);
-        ellipse(this.x, this.y, this.size, this.size); 
+        ellipse(this.x, this.y, this.size, this.size);
     }
 }
