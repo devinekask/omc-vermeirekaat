@@ -3,6 +3,7 @@ let gradientDark;
 let gradientLight;
 
 let stars = [];
+let opacity = 0;
 
 function setup() {
     // createCanvas(800, 800); 
@@ -19,9 +20,11 @@ function draw() {
     // blinkende sterren aanmaken 
     for (let i = 0; i < 30; i++) {
         frameRate(5);
+        opacity = opacity + 1;
         let star = new Star();
         stars.push(star);
         stars[i].show();
+        stars[i].blink();
         // console.log(stars[i]);
     }
 }
@@ -41,9 +44,16 @@ class Star {
         this.x = random(windowWidth);
         this.y = random(windowHeight/2);
         this.size = random(1, 6);
+        this.opacity = 255;
     }
     show() {
-        fill(255);
+        fill(255, 255, 255, this.opacity);
         ellipse(this.x, this.y, this.size, this.size);
+    }
+    blink() {
+        this.opacity -= 255 / 4;
+        if (this.opacity <= 0) {
+            this.opacity = 255;
+        }
     }
 }
