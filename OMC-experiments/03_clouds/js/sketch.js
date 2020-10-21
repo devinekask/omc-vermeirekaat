@@ -2,6 +2,9 @@
 let gradientDark;
 let gradientLight;
 
+// clouds 
+let clouds = []; 
+
 function setup() {
     // createCanvas(800, 800); 
     createCanvas(windowWidth, windowHeight);
@@ -13,6 +16,12 @@ function draw() {
     gradientLight = color(16, 74, 101);
     setGradient(gradientDark, gradientLight);
     // background(0, 0, 35, 25); 
+
+    for (let i = 0; i < 20; i++) {
+        let cloud = new Cloud();
+        clouds.push(cloud); 
+        clouds[i].display();
+    }
 }
 
 function setGradient(gradientDark, gradientLight) {
@@ -22,5 +31,23 @@ function setGradient(gradientDark, gradientLight) {
         let gradient = lerpColor(gradientDark, gradientLight, overflow);
         stroke(gradient);
         line(0, i, width, i);
+    }
+}
+
+class Cloud {
+    constructor() {
+        this.x = random(0, width); 
+        this.y = random(0, height / 2); 
+    }
+    display() {
+        noStroke(); 
+        // colorMode(HSB, 100); 
+        fill(255); 
+        ellipse(this.x, this.y, 24, 24);
+        ellipse(this.x + 10, this.y + 10, 25, 25);
+        ellipse(this.x + 30, this.y + 10, 24, 24);
+        ellipse(this.x + 30, this.y - 10, 30, 30);
+        ellipse(this.x + 20, this.y - 10, 26, 26);
+        ellipse(this.x + 40, this.y, 24, 24);
     }
 }
