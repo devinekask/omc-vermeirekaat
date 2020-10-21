@@ -42,12 +42,14 @@ class Cloud {
     display() {
         noStroke(); 
         // colorMode(HSB, 100); 
-        fill(255); 
+        fill(255, 255, 255, 150); 
+        beginShape();
         ellipse(this.x, this.y, 24, 24);
         ellipse(this.x + 10, this.y + 10, 25, 25);
         ellipse(this.x + 30, this.y + 10, 24, 24);
         ellipse(this.x + 30, this.y - 10, 30, 30);
         ellipse(this.x + 20, this.y - 10, 26, 26);
         ellipse(this.x + 40, this.y, 24, 24);
+        endShape();
     }
 }
