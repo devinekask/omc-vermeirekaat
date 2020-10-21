@@ -23,27 +23,27 @@ function draw() {
     // kleuren definiëren v/d gradient
     gradientDark = color(0, 0, 51);
     gradientLight = color(16, 74, 101);
-    setGradient(gradientDark, gradientLight); 
+    setGradient(gradientDark, gradientLight);
 
     // volume ophalen v/d mic 
-    let input = mic.getLevel(); 
+    let input = mic.getLevel();
     vol = input * 100;
     // console.log(vol); 
 
     // for loop om telkens een nieuwe flame (particle) aan te maken en deze stop je in de array 
     for (let i = 0; i < 3; i++) {
-        let part = new Flame(); 
+        let part = new Flame();
         flames.push(part);
     }
     // per element in de array overloop je de verschillende functies binnen de class
     for (let i = flames.length - 1; i >= 0; i--) {
         flames[i].display();
-        flames[i].move(); 
-        flames[i].minimalize(); 
+        flames[i].move();
+        flames[i].minimalize();
 
         // wanneer de radius kleiner is of gelijk is aan 0, verdwijnt deze uit de array 
         if (flames[i].radius <= 0) {
-            flames.splice(i, 1); 
+            flames.splice(i, 1);
         }
     }
 }
