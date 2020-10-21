@@ -17,10 +17,17 @@ function draw() {
     setGradient(gradientDark, gradientLight);
     // background(0, 0, 35, 25); 
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 5; i++) {
         let cloud = new Cloud();
         clouds.push(cloud); 
-        clouds[i].display();
+        // clouds[i].display();
+        for (let i = clouds.length - 1; i >= 0; i--) {
+            clouds[i].display();
+            clouds[i].move();
+            if (clouds[i].x >= windowWidth) {
+                clouds.splice(i, 1);
+            }
+        }   
     }
 }
 
@@ -41,8 +48,7 @@ class Cloud {
     }
     display() {
         noStroke(); 
-        // colorMode(HSB, 100); 
-        fill(255, 255, 255, 150); 
+        fill(255); 
         beginShape();
         ellipse(this.x, this.y, 24, 24);
         ellipse(this.x + 10, this.y + 10, 25, 25);
@@ -51,5 +57,9 @@ class Cloud {
         ellipse(this.x + 20, this.y - 10, 26, 26);
         ellipse(this.x + 40, this.y, 24, 24);
         endShape();
+    }
+    move() {
+        frameRate(3);
+        this.x += random(1, 5); 
     }
 }
