@@ -26,6 +26,9 @@ let opacity = 0;
 let rain = []; 
 let dropSpeed = 10; 
 
+// CLOUD 
+let clouds = []; 
+
 function setup() {
     let canvas = createCanvas(windowWidth, 600);
     let x = (windowWidth - width) / 2;
