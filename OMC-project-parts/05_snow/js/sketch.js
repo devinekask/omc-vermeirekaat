@@ -2,6 +2,8 @@
 let gradientDark;
 let gradientLight;
  
+// globale array om snowflakes in op te slaan 
+let snowflakes = []; 
 
 function setup() {
     // createCanvas(800, 800); 
@@ -14,6 +16,18 @@ function draw() {
     gradientLight = color(16, 74, 101);
     setGradient(gradientDark, gradientLight);
     // background(0, 0, 35, 25); 
+
+    for (let i = 0; i < 50; i++) {
+        let flake = new Snow();
+        snowflakes.push(flake);
+    }
+        for (let i = snowflakes.length - 1; i >= 0; i--) {
+            snowflakes[i].display();
+            snowflakes[i].move();
+            if (snowflakes[i].y > windowHeight / 2) {
+                snowflakes.splice(i, 1);
+            }
+    }
 }
 
 function setGradient(gradientDark, gradientLight) {
@@ -23,5 +37,23 @@ function setGradient(gradientDark, gradientLight) {
         let gradient = lerpColor(gradientDark, gradientLight, overflow);
         stroke(gradient);
         line(0, i, width, i);
+    }
+}
+
+class Snow {
+    constructor() {
+        this.x = random(0, windowWidth); 
+        this.y = random(0);
+        this.radius = random(1, 7);
+    }
+    display() {
+        fill(255);
+        noStroke(); 
+        ellipse(this.x, this.y, this.radius); 
+    }
+    move() {
+        frameRate(3);
+        this.x += random(-25, 25);
+        this.y += random(5, 20);
     }
 }
