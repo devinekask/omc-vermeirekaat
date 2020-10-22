@@ -9,8 +9,11 @@ let gradientDark;
 let gradientLight;
 
 function setup() {
-    // createCanvas(800, 800); 
-    createCanvas(windowWidth, windowHeight);
+    let canvas = createCanvas(600, 600);
+    let x = (windowWidth - width) / 2; 
+    let y = (windowHeight - height);
+    canvas.position(x, y);
+    // createCanvas(windowWidth, windowHeight);
 
     // audio input aanmaken 
     mic = new p5.AudioIn(); 
@@ -63,8 +66,8 @@ class Flame {
     constructor() {
         // this.x = random(385, 415); 
         // this.y = 800; 
-        this.x = windowWidth / 2 + 1; 
-        this.y = max(windowHeight);
+        this.x = 600 / 2 + 1; 
+        this.y = max(600);
         this.velocityX = random(-1, 1);
         this.velocityY = random(-5, 5);
         this.radius = random(15, 25);  

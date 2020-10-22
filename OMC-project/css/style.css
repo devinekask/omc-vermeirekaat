@@ -7,7 +7,57 @@ html{
 }
 html, body{
     height: 100%;
-    background-color: #232d2d;
+    background-color: black;
     width: 96rem; 
     margin: 0 auto; 
+}
+
+.header {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-around; 
+}
+.title {
+    display: flex; 
+    justify-content: center;
+    color: whitesmoke; 
+    font-size: 3.5rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    text-transform: capitalize; 
+
+    margin: 2rem;
+}
+.introduction {
+    display: flex; 
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    line-height: 2.3rem;
+    text-align: center;
+
+    margin: 2rem; 
+}
+.form {
+    display: flex; 
+    justify-content: center;
+    box-sizing: border-box;
+    margin: 2rem; 
+}
+.form__input {
+    color: wheat; 
+    font-size: 1.5rem; 
+}
+.input {
+    padding: 0.5rem; 
+    border: 0; 
+    background-color: black; 
+    color: wheat;
+}
+.button {
+    padding: 0.7rem; 
+    border: none; 
+    background-color: orange; 
+
+    text-transform: uppercase; 
+    color: red;
 }
