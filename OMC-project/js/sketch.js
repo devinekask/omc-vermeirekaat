@@ -15,10 +15,19 @@ let api = 'http://api.openweathermap.org/data/2.5/weather?q=';
 let apiKey = '&APPID=246867b1139783d7f7a205eae651394b';
 let units = '&units=metric';
 
+let timeAPI = 'http://api.timezonedb.com/v2.1/get-time-zone?';
+let timeKey = 'key=7WJISN15GEKW';
+let timeFormat = '&format=json';
+let timePosition = '&by=position';
+let timeLatitude = '&lat=';
+let timeLongitude = '&lng=';
+
+let latitude;
+let longitude;
+
 let inputValue;
 let jsonString;
-let sunrise;
-let sunset;
+let timeNow;
 
 // STARS 
 let stars = [];
@@ -53,6 +62,8 @@ function setup() {
     // api 
     const $form = document.querySelector(`.form`);
     $form.addEventListener(`submit`, handleSubmit);
+
+    // checkTime();
 }
 
 function draw() {
@@ -164,6 +175,12 @@ function getUrl() {
     // json inladen 
     loadJSON(url, getData);
 }
+function getTimeUrl() {
+    let timeUrl = timeAPI + timeKey + timeFormat + timePosition + timeLatitude + latitude + timeLongitude + longitude;
+    // json inladen 
+    console.log(timeUrl);
+    loadJSON(timeUrl, checkTimeZone);
+}
 function getData(data) {
     weatherData = data;
     console.log(weatherData);
@@ -174,21 +191,44 @@ function getData(data) {
     }
 
     if (weatherData) {
-        sunrise = weatherData.sys.sunrise;
-        sunset = weatherData.sys.sunset;
+        let sunrise = weatherData.sys.sunrise;
+        let sunset = weatherData.sys.sunset;
         console.log(sunrise);
         console.log(sunset);
-        createTimestamp(sunrise);
-        createTimestamp(sunset);
+        createTimeStamp(sunrise);
+        createTimeStamp(sunset);
+    }
+    if (weatherData) {
+        latitude = weatherData.coord.lat;
+        longitude = weatherData.coord.lon;
+        console.log(latitude);
+        console.log(longitude);
+        getTimeUrl(latitude, longitude);
     }
 }
 
-function createTimestamp(timeStamp) {
+function checkTimeZone(coord) {
+    cityCoord = coord;
+    console.log(cityCoord);
+    if (cityCoord) {
+        timeCity = cityCoord.timestamp;
+        createTimeStamp(timeCity);
+    }
+
+}
+// uren vanuit de json omzetten in time
+function createTimeStamp(timeStamp) {
     let date = new Date(timeStamp * 1000);
     let hours = date.getHours();
     let minutes = "0" + date.getMinutes();
     let seconds = "0" + date.getSeconds();
 
-    let timeNow = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    timeNow = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     console.log(timeNow);
+}
+
+function checkTime(timeZone) {
+    let today = new Date();
+    let currentTime = today.toLocaleTimeString(timeZone);
+    console.log(currentTime);
 }
