@@ -18,6 +18,10 @@ let units = '&units=metric';
 let inputValue;
 let jsonString;
 
+// STARS 
+let stars = []; 
+let opacity = 0; 
+
 function setup() {
     let canvas = createCanvas(windowWidth, 600);
     let x = (windowWidth - width) / 2;
@@ -37,6 +41,8 @@ function setup() {
 }
 
 function draw() {
+
+    // FIRE 
     // kleuren definiëren v/d gradient
     gradientDark = color(0, 0, 51);
     gradientLight = color(16, 74, 101);
@@ -63,6 +69,21 @@ function draw() {
             flames.splice(i, 1);
         }
     }
+
+    // API + SETTING 
+    if (weatherType === 'Rain') {
+        
+    } else {
+        for (let i = 0; i < 30; i++) {
+            frameRate(5);
+            opacity = opacity + 1;
+            let star = new Star();
+            stars.push(star);
+            stars[i].show();
+            stars[i].blink();
+            // console.log(stars[i]);
+        }
+    }  
 }
 
 function setGradient(gradientDark, gradientLight) {
