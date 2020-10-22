@@ -29,6 +29,9 @@ let dropSpeed = 10;
 // CLOUD 
 let clouds = []; 
 
+// SNOW 
+let snowflakes = [];
+
 function setup() {
     let canvas = createCanvas(windowWidth, 600);
     let x = (windowWidth - width) / 2;
@@ -107,7 +110,15 @@ function draw() {
                 }
             }
         }
-    } else {
+    } else if (weatherType === "Snow") {
+        for (let i = 0; i < 50; i++) {
+            let flake = new Snow();
+            snowflakes.push(flake);
+        }
+        for (let i = snowflakes.length - 1; i >= 0; i--) {
+            snowflakes[i].display();
+            snowflakes[i].move();
+        }
     } 
 }
 
