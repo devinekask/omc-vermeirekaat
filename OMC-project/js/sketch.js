@@ -22,6 +22,10 @@ let jsonString;
 let stars = []; 
 let opacity = 0; 
 
+// RAIN 
+let rain = []; 
+let dropSpeed = 10; 
+
 function setup() {
     let canvas = createCanvas(windowWidth, 600);
     let x = (windowWidth - width) / 2;
@@ -72,8 +76,12 @@ function draw() {
 
     // API + SETTING 
     if (weatherType === 'Rain') {
-        
-    } else {
+        for (let i = 0; i < 100; i++) {
+            let raindrop = new Rain;
+            rain.push(raindrop);
+            rain[i].fall();
+        }    
+    } else if (weatherType === 'Clear') {
         for (let i = 0; i < 30; i++) {
             frameRate(5);
             opacity = opacity + 1;
@@ -83,7 +91,21 @@ function draw() {
             stars[i].blink();
             // console.log(stars[i]);
         }
-    }  
+    } else if (weatherType === 'Clouds') {
+        for (let i = 0; i < 5; i++) {
+            let cloud = new Cloud();
+            clouds.push(cloud);
+            // clouds[i].display();
+            for (let i = clouds.length - 1; i >= 0; i--) {
+                clouds[i].display();
+                clouds[i].move();
+                if (clouds[i].x >= windowWidth) {
+                    clouds.splice(i, 1);
+                }
+            }
+        }
+    } else {
+    } 
 }
 
 function setGradient(gradientDark, gradientLight) {
