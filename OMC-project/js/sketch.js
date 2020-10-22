@@ -28,6 +28,11 @@ let longitude;
 let inputValue;
 let jsonString;
 let timeNow;
+let currentTime; 
+
+let sunrise 
+let sunset; 
+let timeCity;
 
 // STARS 
 let stars = [];
@@ -67,12 +72,22 @@ function setup() {
 }
 
 function draw() {
-
     // FIRE 
     // kleuren definiëren v/d gradient
-    gradientDark = color(0, 0, 51);
-    gradientLight = color(16, 74, 101);
-    setGradient(gradientDark, gradientLight);
+    // gradientDark = color(0, 0, 51);
+    // gradientLight = color(16, 74, 101);
+    // setGradient(gradientDark, gradientLight);
+    if (timeCity <= sunrise) {
+        gradientDark = color(255, 121, 121);
+        gradientLight = color(255, 249, 114);
+        // console.log(gradientDark, gradientLight)
+        setGradient(gradientDark, gradientLight);
+    } else {
+        gradientDark = color(0, 0, 51);
+        gradientLight = color(16, 74, 101);
+        // console.log(gradientDark, gradientLight)
+        setGradient(gradientDark, gradientLight);
+    } 
 
     // volume ophalen v/d mic 
     let input = mic.getLevel();
@@ -81,6 +96,23 @@ function draw() {
 
     makeFire();
     checkWeatherType();
+}
+
+function determineSetting() {
+    // if (currentTime >= sunUp && currentTime <= sunDown) {
+    if (timeCity >= sunrise) {
+        gradientDark = color(255, 121, 121);
+        gradientLight = color(255, 249, 114); 
+        // console.log(gradientDark, gradientLight)
+        setGradient(gradientDark, gradientLight);
+    } else if (timeCity <= sunDown) {
+        gradientDark = color(0, 0, 51);
+        gradientLight = color(16, 74, 101);
+        // console.log(gradientDark, gradientLight)
+        setGradient(gradientDark, gradientLight);
+    } else {
+        background(0); 
+    }
 }
 
 function setGradient(gradientDark, gradientLight) {
@@ -178,41 +210,41 @@ function getUrl() {
 function getTimeUrl() {
     let timeUrl = timeAPI + timeKey + timeFormat + timePosition + timeLatitude + latitude + timeLongitude + longitude;
     // json inladen 
-    console.log(timeUrl);
+    // console.log(timeUrl);
     loadJSON(timeUrl, checkTimeZone);
 }
 function getData(data) {
     weatherData = data;
-    console.log(weatherData);
+    // console.log(weatherData);
 
     if (weatherData) {
         weatherType = weatherData.weather[0].main;
-        console.log(weatherType);
+        // console.log(weatherType);
     }
 
     if (weatherData) {
-        let sunrise = weatherData.sys.sunrise;
-        let sunset = weatherData.sys.sunset;
-        console.log(sunrise);
-        console.log(sunset);
-        createTimeStamp(sunrise);
-        createTimeStamp(sunset);
+        sunrise = weatherData.sys.sunrise;
+        sunset = weatherData.sys.sunset;
+        // console.log(sunrise);
+        // console.log(sunset);
+        // sunUp = createTimeStamp(sunrise);
+        // sunDown = createTimeStamp(sunset);
     }
     if (weatherData) {
         latitude = weatherData.coord.lat;
         longitude = weatherData.coord.lon;
-        console.log(latitude);
-        console.log(longitude);
+        // console.log(latitude);
+        // console.log(longitude);
         getTimeUrl(latitude, longitude);
     }
 }
-
 function checkTimeZone(coord) {
     cityCoord = coord;
-    console.log(cityCoord);
+    // console.log(cityCoord);
     if (cityCoord) {
         timeCity = cityCoord.timestamp;
-        createTimeStamp(timeCity);
+        // console.log(timeCity); 
+        currentTime = createTimeStamp(timeCity);
     }
 
 }
@@ -224,11 +256,6 @@ function createTimeStamp(timeStamp) {
     let seconds = "0" + date.getSeconds();
 
     timeNow = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    console.log(timeNow);
-}
-
-function checkTime(timeZone) {
-    let today = new Date();
-    let currentTime = today.toLocaleTimeString(timeZone);
-    console.log(currentTime);
+    // console.log(timeNow);
+    
 }
