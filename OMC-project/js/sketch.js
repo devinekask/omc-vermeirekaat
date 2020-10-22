@@ -17,17 +17,19 @@ let units = '&units=metric';
 
 let inputValue;
 let jsonString;
+let sunrise;
+let sunset;
 
 // STARS 
-let stars = []; 
-let opacity = 0; 
+let stars = [];
+let opacity = 0;
 
 // RAIN 
-let rain = []; 
-let dropSpeed = 10; 
+let rain = [];
+let dropSpeed = 10;
 
 // CLOUD 
-let clouds = []; 
+let clouds = [];
 
 // SNOW 
 let snowflakes = [];
@@ -66,6 +68,21 @@ function draw() {
     vol = input * 100;
     // console.log(vol); 
 
+    makeFire();
+    checkWeatherType();
+}
+
+function setGradient(gradientDark, gradientLight) {
+    noFill();
+    for (let i = 0; i < height; i++) {
+        let overflow = map(i, 0, height, 0, 1);
+        let gradient = lerpColor(gradientDark, gradientLight, overflow);
+        stroke(gradient);
+        line(0, i, width, i);
+    }
+}
+
+function makeFire() {
     // for loop om telkens een nieuwe flame (particle) aan te maken en deze stop je in de array 
     for (let i = 0; i < 3; i++) {
         let part = new Flame();
@@ -82,14 +99,16 @@ function draw() {
             flames.splice(i, 1);
         }
     }
+}
 
+function checkWeatherType() {
     // API + SETTING 
     if (weatherType === 'Rain') {
         for (let i = 0; i < 100; i++) {
             let raindrop = new Rain;
             rain.push(raindrop);
             rain[i].fall();
-        }    
+        }
     } else if (weatherType === 'Clear') {
         for (let i = 0; i < 30; i++) {
             frameRate(5);
@@ -128,17 +147,7 @@ function draw() {
             let light = new Storm;
             lightning.push(light);
             lightning[i].display();
-        }      
-    }
-}
-
-function setGradient(gradientDark, gradientLight) {
-    noFill();
-    for (let i = 0; i < height; i++) {
-        let overflow = map(i, 0, height, 0, 1);
-        let gradient = lerpColor(gradientDark, gradientLight, overflow);
-        stroke(gradient);
-        line(0, i, width, i);
+        }
     }
 }
 
@@ -163,4 +172,23 @@ function getData(data) {
         weatherType = weatherData.weather[0].main;
         console.log(weatherType);
     }
+
+    if (weatherData) {
+        sunrise = weatherData.sys.sunrise;
+        sunset = weatherData.sys.sunset;
+        console.log(sunrise);
+        console.log(sunset);
+        createTimestamp(sunrise);
+        createTimestamp(sunset);
+    }
+}
+
+function createTimestamp(timeStamp) {
+    let date = new Date(timeStamp * 1000);
+    let hours = date.getHours();
+    let minutes = "0" + date.getMinutes();
+    let seconds = "0" + date.getSeconds();
+
+    let timeNow = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    console.log(timeNow);
 }
