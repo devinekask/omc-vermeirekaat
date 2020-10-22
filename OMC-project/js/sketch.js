@@ -32,6 +32,9 @@ let clouds = [];
 // SNOW 
 let snowflakes = [];
 
+// STORM
+let lightning = [];
+
 function setup() {
     let canvas = createCanvas(windowWidth, 600);
     let x = (windowWidth - width) / 2;
@@ -119,7 +122,14 @@ function draw() {
             snowflakes[i].display();
             snowflakes[i].move();
         }
-    } 
+    } else if (weatherType === "Thunderstorm") {
+        for (let i = 0; i < 5; i++) {
+            frameRate(10);
+            let light = new Storm;
+            lightning.push(light);
+            lightning[i].display();
+        }      
+    }
 }
 
 function setGradient(gradientDark, gradientLight) {
