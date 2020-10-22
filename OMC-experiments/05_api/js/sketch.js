@@ -28,20 +28,20 @@ function handleSubmit(e) {
     e.preventDefault(); 
     const $inputField = document.querySelector(`.input`); 
     inputValue = $inputField.value; 
-    console.log(inputValue);
+    // console.log(inputValue);
 
-    weatherAsk(); 
+    getUrl(); 
 }
-function weatherAsk() {
+function getUrl() {
     // correcte url opstellen 
-    let url = api + input.value() + apiKey + units;
+    let url = api + inputValue + apiKey + units;
     // json inladen 
-    loadJSON(url, gotData); 
+    loadJSON(url, getData); 
 }
 
-function gotData(data) {
-    weather = data; 
-
+function getData(data) {
+    weather = data;
+    console.log(weather); 
 }
 
 function draw() {
