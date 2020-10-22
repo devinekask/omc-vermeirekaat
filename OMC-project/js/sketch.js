@@ -257,5 +257,4 @@ function createTimeStamp(timeStamp) {
 
     timeNow = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     // console.log(timeNow);
-    
 }

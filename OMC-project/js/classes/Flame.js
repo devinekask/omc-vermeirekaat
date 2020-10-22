@@ -3,7 +3,7 @@ class Flame {
     constructor() {
         // this.x = random(385, 415); 
         // this.y = 800; 
-        this.x = windowWidth / 2 + 1;
+        this.x = windowWidth / 2;
         this.y = max(600);
         this.velocityX = random(-1, 1);
         this.velocityY = random(-5, 5);
