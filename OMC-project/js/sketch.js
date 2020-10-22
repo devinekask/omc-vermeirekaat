@@ -8,8 +8,18 @@ let vol;
 let gradientDark;
 let gradientLight;
 
+// weather api 
+let weatherData;
+let weatherType;
+let api = 'http://api.openweathermap.org/data/2.5/weather?q=';
+let apiKey = '&APPID=246867b1139783d7f7a205eae651394b';
+let units = '&units=metric';
+
+let inputValue;
+let jsonString;
+
 function setup() {
-    let canvas = createCanvas(600, 600);
+    let canvas = createCanvas(windowWidth, 600);
     let x = (windowWidth - width) / 2; 
     let y = (windowHeight - height);
     canvas.position(x, y);
@@ -20,6 +30,10 @@ function setup() {
 
     // audio input starten 
     mic.start(); 
+
+    // api 
+    const $form = document.querySelector(`.form`); 
+    $form.addEventListener(`submit`, handleSubmit);
 }
 
 function draw() {
@@ -55,9 +69,32 @@ function setGradient(gradientDark, gradientLight) {
     noFill();
     for (let i = 0; i < height; i++) {
         let overflow = map(i, 0, height, 0, 1);
-        let gradient = lerpColor(gradientDark, gradientLight, overflow); 
+        let gradient = lerpColor(gradientDark, gradientLight, overflow);
         stroke(gradient);
-        line(0, i, width, i); 
+        line(0, i, width, i);
+    }
+}
+
+function handleSubmit(e) {
+    e.preventDefault(); 
+    const $inputField = document.querySelector(`.input`);
+    inputValue = $inputField.value;
+
+    getUrl();
+}
+function getUrl() {
+    // correcte url opstellen 
+    let url = api + inputValue + apiKey + units; 
+    // json inladen 
+    loadJSON(url, getData);
+}
+function getData(data) {
+    weatherData = data; 
+    console.log(weatherData); 
+
+    if (weatherData) {
+        weatherType = weatherData.weather[0].main;
+        console.log(weatherType); 
     }
 }
 
@@ -66,7 +103,7 @@ class Flame {
     constructor() {
         // this.x = random(385, 415); 
         // this.y = 800; 
-        this.x = 600 / 2 + 1; 
+        this.x = windowWidth / 2 + 1; 
         this.y = max(600);
         this.velocityX = random(-1, 1);
         this.velocityY = random(-5, 5);
