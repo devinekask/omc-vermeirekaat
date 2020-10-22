@@ -3,13 +3,14 @@ let gradientDark;
 let gradientLight;
 
 // weather api 
-let weather; 
+let weatherData; 
 let api = 'http://api.openweathermap.org/data/2.5/weather?q='; 
 // let city = 'London'; 
 let apiKey = '&APPID=246867b1139783d7f7a205eae651394b'; 
 let units = '&units=metric';
 
 let inputValue;
+let jsonString;
 
 function setup() {
     createCanvas(800, 800); 
@@ -40,8 +41,13 @@ function getUrl() {
 }
 
 function getData(data) {
-    weather = data;
-    console.log(weather); 
+    weatherData = data;
+    console.log(weatherData);
+
+    if (weatherData) {
+        let weatherType = weatherData.weather[0].main;
+        console.log(weatherType);
+    }
 }
 
 function draw() {
