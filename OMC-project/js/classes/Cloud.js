@@ -1,6 +1,6 @@
 class Cloud {
     constructor() {
-        this.x = random(0, width);
+        this.x = random(-10, width);
         this.y = random(0, height / 2);
     }
     display() {
@@ -16,7 +16,6 @@ class Cloud {
         endShape();
     }
     move() {
-        frameRate(3);
         this.x += random(1, 5);
     }
 }

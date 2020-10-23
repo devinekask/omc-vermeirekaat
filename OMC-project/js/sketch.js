@@ -60,9 +60,10 @@ function setup() {
 
     // audio input aanmaken 
     mic = new p5.AudioIn();
-
     // audio input starten 
     mic.start();
+
+    frameRate = frameRate(30);
 
     // api 
     const $form = document.querySelector(`.form`);
@@ -73,26 +74,24 @@ function setup() {
 
 function draw() {
     // FIRE 
-    // kleuren definiëren v/d gradient
-    // gradientDark = color(0, 0, 51);
-    // gradientLight = color(16, 74, 101);
-    // setGradient(gradientDark, gradientLight);
     if (timeCity <= sunrise) {
         gradientDark = color(255, 121, 121);
         gradientLight = color(255, 249, 114);
         // console.log(gradientDark, gradientLight)
         setGradient(gradientDark, gradientLight);
-    } else {
+    } else if (timeCity >= sunrise) {
         gradientDark = color(0, 0, 51);
         gradientLight = color(16, 74, 101);
         // console.log(gradientDark, gradientLight)
         setGradient(gradientDark, gradientLight);
-    } 
+    } else {
+        background(0);
+    }
 
     // volume ophalen v/d mic 
     let input = mic.getLevel();
     vol = input * 100;
-    // console.log(vol); 
+    console.log(vol); 
 
     makeFire();
     checkWeatherType();
@@ -142,6 +141,7 @@ function makeFire() {
             flames.splice(i, 1);
         }
     }
+    loop();
 }
 
 function checkWeatherType() {
@@ -154,7 +154,6 @@ function checkWeatherType() {
         }
     } else if (weatherType === 'Clear') {
         for (let i = 0; i < 30; i++) {
-            frameRate(5);
             opacity = opacity + 1;
             let star = new Star();
             stars.push(star);
@@ -163,7 +162,7 @@ function checkWeatherType() {
             // console.log(stars[i]);
         }
     } else if (weatherType === 'Clouds') {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 1; i++) {
             let cloud = new Cloud();
             clouds.push(cloud);
             // clouds[i].display();
@@ -186,7 +185,6 @@ function checkWeatherType() {
         }
     } else if (weatherType === "Thunderstorm") {
         for (let i = 0; i < 5; i++) {
-            frameRate(10);
             let light = new Storm;
             lightning.push(light);
             lightning[i].display();
