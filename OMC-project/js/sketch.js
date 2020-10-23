@@ -30,9 +30,8 @@ let jsonString;
 let timeNow;
 let currentTime; 
 
-let sunrise 
-let sunset; 
-let timeCity;
+let morning 
+let night; 
 
 // STARS 
 let stars = [];
@@ -63,7 +62,8 @@ function setup() {
     // audio input starten 
     mic.start();
 
-    frameRate = frameRate(30);
+    fr = 30;
+    frameRate(fr);
 
     // api 
     const $form = document.querySelector(`.form`);
@@ -74,43 +74,30 @@ function setup() {
 
 function draw() {
     // FIRE 
-    if (timeCity <= sunrise) {
-        gradientDark = color(255, 121, 121);
-        gradientLight = color(255, 249, 114);
-        // console.log(gradientDark, gradientLight)
-        setGradient(gradientDark, gradientLight);
-    } else if (timeCity >= sunrise) {
-        gradientDark = color(0, 0, 51);
-        gradientLight = color(16, 74, 101);
-        // console.log(gradientDark, gradientLight)
-        setGradient(gradientDark, gradientLight);
-    } else {
-        background(0);
-    }
+    determineSetting();
 
     // volume ophalen v/d mic 
     let input = mic.getLevel();
     vol = input * 100;
-    console.log(vol); 
+    // console.log(vol); 
 
     makeFire();
     checkWeatherType();
 }
 
-function determineSetting() {
-    // if (currentTime >= sunUp && currentTime <= sunDown) {
-    if (timeCity >= sunrise) {
+async function determineSetting() {
+    if ((currentTime >= morning) || (currentTime <= night)) {
+        // console.log('dag');
         gradientDark = color(255, 121, 121);
-        gradientLight = color(255, 249, 114); 
-        // console.log(gradientDark, gradientLight)
-        setGradient(gradientDark, gradientLight);
-    } else if (timeCity <= sunDown) {
+        gradientLight = color(255, 249, 114);
+        await setGradient(gradientDark, gradientLight);
+    } else if((currentTime <= morning) || (currentTime > night)) {
+        // console.log('nacht');
         gradientDark = color(0, 0, 51);
         gradientLight = color(16, 74, 101);
-        // console.log(gradientDark, gradientLight)
-        setGradient(gradientDark, gradientLight);
+        await setGradient(gradientDark, gradientLight);
     } else {
-        background(0); 
+        background(0);
     }
 }
 
@@ -225,8 +212,8 @@ function getData(data) {
         sunset = weatherData.sys.sunset;
         // console.log(sunrise);
         // console.log(sunset);
-        // sunUp = createTimeStamp(sunrise);
-        // sunDown = createTimeStamp(sunset);
+        morning = createTimeStamp(sunrise);
+        night = createTimeStamp(sunset);
     }
     if (weatherData) {
         latitude = weatherData.coord.lat;
@@ -240,19 +227,23 @@ function checkTimeZone(coord) {
     cityCoord = coord;
     // console.log(cityCoord);
     if (cityCoord) {
-        timeCity = cityCoord.timestamp;
+        let timeCity = cityCoord.timestamp;
         // console.log(timeCity); 
         currentTime = createTimeStamp(timeCity);
     }
 
 }
 // uren vanuit de json omzetten in time
-function createTimeStamp(timeStamp) {
+async function createTimeStamp(timeStamp) {
     let date = new Date(timeStamp * 1000);
     let hours = date.getHours();
     let minutes = "0" + date.getMinutes();
     let seconds = "0" + date.getSeconds();
 
+    let calculatedTime = (hours * 60) + minutes;
+    console.log(calculatedTime);
+    await determineSetting(calculatedTime); 
+    
     timeNow = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    // console.log(timeNow);
+    console.log(timeNow);
 }
