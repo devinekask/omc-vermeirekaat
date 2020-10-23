@@ -4,7 +4,7 @@ class Flame {
         // this.x = random(385, 415); 
         // this.y = 800; 
         this.x = windowWidth / 2;
-        this.y = max(600);
+        this.y = max(550);
         this.radius = random(15, 25);
     }
     // particles tonen op het scherm met de elementen uit de constructor 

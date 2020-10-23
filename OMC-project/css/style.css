@@ -61,3 +61,8 @@ html, body{
     text-transform: uppercase; 
     color: red;
 }
+.text {
+    color: white; 
+    font-size: 2rem; 
+    text-transform: uppercase; 
+}

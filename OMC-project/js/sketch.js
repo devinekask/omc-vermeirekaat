@@ -51,7 +51,7 @@ let snowflakes = [];
 let lightning = [];
 
 function setup() {
-    let canvas = createCanvas(windowWidth, 600);
+    let canvas = createCanvas(windowWidth, 550);
     let x = (windowWidth - width) / 2;
     let y = (windowHeight - height);
     canvas.position(x, y);
@@ -230,6 +230,7 @@ function checkTimeZone(coord) {
         let timeCity = cityCoord.timestamp;
         // console.log(timeCity); 
         currentTime = createTimeStamp(timeCity);
+        checkCurrentTime(timeCity);
     }
 
 }
@@ -238,12 +239,23 @@ async function createTimeStamp(timeStamp) {
     let date = new Date(timeStamp * 1000);
     let hours = date.getHours();
     let minutes = "0" + date.getMinutes();
-    let seconds = "0" + date.getSeconds();
 
     let calculatedTime = (hours * 60) + minutes;
     console.log(calculatedTime);
     await determineSetting(calculatedTime); 
-    
+}
+function checkCurrentTime(timeStamp) {
+    let date = new Date(timeStamp * 1000);
+    let hours = date.getHours();
+    let minutes = "0" + date.getMinutes();
+    let seconds = "0" + date.getSeconds();
+
     timeNow = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     console.log(timeNow);
+    displayOnScreen(timeNow); 
+}
+
+function displayOnScreen(time) {
+    $text = document.querySelector(`.text`); 
+    $text.textContent = `${inputValue} - ${time}`; 
 }
