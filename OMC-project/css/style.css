@@ -8,7 +8,9 @@ html{
 html, body{
     height: 100%;
     background-color: black;
-    width: 96rem; 
+}
+.main {
+      width: 96rem; 
     margin: 0 auto; 
 }
 .header {
@@ -17,20 +19,17 @@ html, body{
     justify-content: space-around; 
 }
 .title {
-    display: flex; 
-    justify-content: center;
     background: -webkit-linear-gradient(90deg, rgba(222,89,34,1) 0%, rgba(219,191,53,1) 35%, rgba(118,201,121,1) 65%, rgba(0,212,255,1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 3.5rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
     text-transform: capitalize; 
+    text-align: center;
 
     margin: 2rem;
 }
 .introduction {
-    display: flex; 
-    justify-content: center;
     color: white;
     font-size: 1.8rem;
     line-height: 2.3rem;
@@ -42,6 +41,7 @@ html, body{
     display: flex; 
     justify-content: center;
     box-sizing: border-box;
+    text-align: center;
     margin: 2rem; 
 }
 .form__input {

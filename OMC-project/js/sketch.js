@@ -64,8 +64,6 @@ function setup() {
     // api 
     const $form = document.querySelector(`.form`);
     $form.addEventListener(`submit`, handleSubmit);
-
-    // checkTime();
 }
 
 async function draw() {
