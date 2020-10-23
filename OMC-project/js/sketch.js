@@ -240,7 +240,7 @@ async function createTimeStamp(timeStamp) {
     let hours = date.getHours();
     let minutes = "0" + date.getMinutes();
 
-    let calculatedTime = (hours * 60) + minutes;
+    let calculatedTime = ((hours-2) * 60) + minutes;
     console.log(calculatedTime);
     await determineSetting(calculatedTime); 
 }
@@ -250,7 +250,7 @@ function checkCurrentTime(timeStamp) {
     let minutes = "0" + date.getMinutes();
     let seconds = "0" + date.getSeconds();
 
-    timeNow = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    timeNow = (hours-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     console.log(timeNow);
     displayOnScreen(timeNow); 
 }
