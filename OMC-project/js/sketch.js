@@ -4,10 +4,6 @@ let flames = [];
 let mic;
 let vol;
 
-// globale variabelen voor de achtergrondkleuren
-let gradientDark;
-let gradientLight;
-
 // weather api 
 let weatherData;
 let weatherType;
@@ -73,7 +69,7 @@ function setup() {
 }
 
 async function draw() {
-    // FIRE 
+    // FIRE  
     await determineSetting();
 
     // volume ophalen v/d mic 
@@ -90,13 +86,11 @@ function determineSetting() {
         gradientDark = color(255, 121, 121);
         gradientLight = color(255, 249, 114);
         setGradient(gradientDark, gradientLight);
-    } else if((currentTime <= morning) && (currentTime > night)) {
+    } else {
         gradientDark = color(0, 0, 51);
         gradientLight = color(16, 74, 101);
         setGradient(gradientDark, gradientLight);
-    } else {
-        background(0);
-    }
+    } 
 }
 
 function setGradient(gradientDark, gradientLight) {
@@ -232,15 +226,16 @@ function checkTimeZone(coord) {
     }
 
 }
-// uren vanuit de json omzetten in time
-async function createTimeStamp(timeStamp) {
+// uren vanuit de json omzetten in aantal minuten 
+function createTimeStamp(timeStamp) {
     let date = new Date(timeStamp * 1000);
     let hours = date.getHours();
     let minutes = "0" + date.getMinutes();
 
     let calculatedTime = ((hours-2) * 60) + minutes;
     console.log(calculatedTime);
-    await determineSetting(calculatedTime); 
+    return calculatedTime; 
+    // determineSetting(calculatedTime); 
 }
 function checkCurrentTime(timeStamp) {
     let date = new Date(timeStamp * 1000);
@@ -249,7 +244,7 @@ function checkCurrentTime(timeStamp) {
     let seconds = "0" + date.getSeconds();
     // console.log(hours); 
     timeNow = (hours-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    console.log(timeNow);
+    // console.log(timeNow);
     displayOnScreen(timeNow); 
 }
 
