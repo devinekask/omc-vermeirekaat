@@ -72,9 +72,9 @@ function setup() {
     // checkTime();
 }
 
-function draw() {
+async function draw() {
     // FIRE 
-    determineSetting();
+    await determineSetting();
 
     // volume ophalen v/d mic 
     let input = mic.getLevel();
@@ -85,17 +85,15 @@ function draw() {
     checkWeatherType();
 }
 
-async function determineSetting() {
-    if ((currentTime >= morning) || (currentTime <= night)) {
-        // console.log('dag');
+function determineSetting() {
+    if ((currentTime >= morning) && (currentTime <= night)) {
         gradientDark = color(255, 121, 121);
         gradientLight = color(255, 249, 114);
-        await setGradient(gradientDark, gradientLight);
-    } else if((currentTime <= morning) || (currentTime > night)) {
-        // console.log('nacht');
+        setGradient(gradientDark, gradientLight);
+    } else if((currentTime <= morning) && (currentTime > night)) {
         gradientDark = color(0, 0, 51);
         gradientLight = color(16, 74, 101);
-        await setGradient(gradientDark, gradientLight);
+        setGradient(gradientDark, gradientLight);
     } else {
         background(0);
     }
